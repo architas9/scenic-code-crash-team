@@ -6,6 +6,7 @@ recreation of NearCrash.mp4 where a ego vehicle is driving straight in the night
 param map = localPath('../../tests/formats/opendrive/maps/CARLA/Town05.xodr')  
 param carla_map = 'Town05'
 model scenic.simulators.carla.model
+param sun_altitude_angle = -90 
 
 # CONSTANTS
 EGO_SPEED = 5
@@ -32,11 +33,13 @@ truckspot = OrientedPoint in intersection
 ego = Car at egospot,
         with behavior EgoBehavior(EGO_SPEED)
 
-truck = Truck at truckspot,
+truck = Truck right of truckspot,
         apparently facing 90 deg,
-        with behavior TruckBehavior(speed = TRUCK_SPEED) 
+        with behavior TruckBehavior(speed = TRUCK_SPEED)
+
 
 require 9 < (distance to intersection) < 10
+require (distance from truck to intersection) < 8
 terminate when (distance to egospot) > 75
 require always ego can see truck
 require always relative heading of truck is 90 deg
