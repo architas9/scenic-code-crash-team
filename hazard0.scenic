@@ -61,8 +61,7 @@ merge = Car ahead of ego by (0, 15),
 
 rightLane = ego.laneSection._slowerLane
 
-require (distance to intersection) > 15
-require (distance to intersection) > 25
+require 75 < (distance to intersection) < 100
 require (ego.laneSection._slowerLane is not None)
 require (ego.laneSection._fasterLane is not None)
 terminate when (distance to spot) > 150
