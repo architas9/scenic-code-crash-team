@@ -3,7 +3,7 @@ recreation of NearCrash.mp4 where a ego vehicle is driving straight in the night
 """
 
 # SET MAP AND MODEL 
-param map = localPath('../../assets/maps/CARLA/Town05.xodr')  
+param map = localPath('../assets/maps/CARLA/Town05.xodr')  
 param carla_map = 'Town05'
 model scenic.simulators.carla.model
 param sun_altitude_angle = -90 
@@ -42,4 +42,4 @@ require 9 < (distance to intersection) < 10
 require (distance from truck to intersection) < 8
 terminate when (distance to egospot) > 75
 require always ego can see truck
-require always relative heading of truck is 90 deg
+require always relative heading of truck == 90 deg
