@@ -5,7 +5,7 @@ and another car merges into the left lane without checking its blindspot.
 """
 
 # MAP AND MODEL
-param map = localPath('../assets/CARLA/Town05.xodr')
+param map = localPath('../assets/maps/CARLA/Town05.xodr')
 param carla_map = 'Town05'
 model scenic.simulators.carla.model
 
