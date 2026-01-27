@@ -5,7 +5,7 @@ and another car merges into the left lane without checking its blindspot.
 """
 
 # MAP AND MODEL
-param map = localPath('../../tests/formats/opendrive/maps/CARLA/Town05.xodr')
+param map = localPath('../assets/CARLA/Town05.xodr')
 param carla_map = 'Town05'
 model scenic.simulators.carla.model
 
@@ -36,17 +36,17 @@ behavior MergeBehavior(speed=MERGE_SPEED):
 
 # LANE AND POSITION SETUP
 lane = Uniform(*network.lanes)
-egoSpot = OrientedPoint on lane.centerline
+egoSpot = new OrientedPoint on lane.centerline
 
-ego = Car at egoSpot,
+ego = new Car at egoSpot,
     with blueprint EGO_MODEL,
     with behavior EgoBehavior(EGO_SPEED)
 
-merge = Car right of ego by 4.2,
+merge = new Car right of ego by 4.2,
     with blueprint MERGE_MODEL,
     with behavior MergeBehavior(MERGE_SPEED)
 
-extra = Car ahead of ego by (0, 15),
+extra = new Car ahead of ego by (0, 15),
     with blueprint EGO_MODEL,
     with behavior EgoBehavior(EGO_SPEED)
 
