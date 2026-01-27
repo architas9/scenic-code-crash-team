@@ -3,7 +3,7 @@ recreation of NearCrash.mp4 where a ego vehicle is driving straight in the night
 """
 
 # SET MAP AND MODEL 
-param map = localPath('../../tests/formats/opendrive/maps/CARLA/Town05.xodr')  
+param map = localPath('../../assets/maps/CARLA/Town05.xodr')  
 param carla_map = 'Town05'
 model scenic.simulators.carla.model
 param sun_altitude_angle = -90 
@@ -27,13 +27,13 @@ behavior TruckBehavior(speed = 5):
 fourwayintersec = filter(lambda i: i.is4Way, network.intersections)
 intersec = Uniform(*fourwayintersec)
 egolane = Uniform(*intersec.incomingLanes)
-egospot = OrientedPoint on egolane.centerline
-truckspot = OrientedPoint in intersection
+egospot = new OrientedPoint on egolane.centerline
+truckspot = new OrientedPoint in intersection
 
-ego = Car at egospot,
+ego = new Car at egospot,
         with behavior EgoBehavior(EGO_SPEED)
 
-truck = Truck right of truckspot,
+truck = new Truck right of truckspot,
         apparently facing 90 deg,
         with behavior TruckBehavior(speed = TRUCK_SPEED)
 
