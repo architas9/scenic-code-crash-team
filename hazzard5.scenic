@@ -4,7 +4,7 @@ Recreation of Hazzard5.mp4 — the ego car is turning left on a yellow light whi
 """
 
 # MAP AND MODEL
-param map = localPath('../../tests/formats/opendrive/maps/CARLA/Town05.xodr')
+param map = localPath('../../assets/maps/CARLA/Town05.xodr')
 param carla_map = 'Town05'
 model scenic.simulators.carla.model
 
@@ -29,17 +29,17 @@ intersection = Uniform(*filter(lambda i: i.is4Way, network.intersections))
 egoInitLane = Uniform(*intersection.incomingLanes)
 egoManeuver = Uniform(*filter(lambda m: m.type is ManeuverType.LEFT_TURN, egoInitLane.maneuvers))
 egoTrajectory = [egoInitLane, egoManeuver.connectingLane, egoManeuver.endLane]
-egospot = OrientedPoint in egoInitLane.centerline
+egospot = new OrientedPoint in egoInitLane.centerline
 
 advInitLane = Uniform(*filter(lambda m: m.type is ManeuverType.STRAIGHT, Uniform(*filter(lambda m: m.type is ManeuverType.STRAIGHT, egoInitLane.maneuvers)).reverseManeuvers)).startLane
 advManeuver = Uniform(*filter(lambda m: m.type is ManeuverType.STRAIGHT, advInitLane.maneuvers))
 advTrajectory = [advInitLane, advManeuver.connectingLane, advManeuver.endLane]
-advspot = OrientedPoint in advInitLane.centerline
+advspot = new OrientedPoint in advInitLane.centerline
 
-ego = Car at egospot,
+ego = new Car at egospot,
   with behavior EgoBehavior(egoTrajectory)
 
-adversary = Car at advspot,
+adversary = new Car at advspot,
   with behavior FollowTrajectoryBehavior(target_speed=ADVERSARY_SPEED, trajectory=advTrajectory)
 
 require (distance to intersection) < 35
