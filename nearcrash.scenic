@@ -24,11 +24,14 @@ behavior TruckBehavior(speed = 5):
          do FollowLaneBehavior(target_speed=TRUCK_SPEED)
 
 # PLACEMENT
-fourwayintersec = filter(lambda i: i.is4Way, network.intersections)
+fourwayintersec = [i for i in network.intersections if i.is4Way]
 intersec = Uniform(*fourwayintersec)
-egolane = Uniform(*intersec.incomingLanes)
+
+egolane = UniformChoice(intersec.incomingLanes)
+
 egospot = new OrientedPoint on egolane.centerline
-truckspot = new OrientedPoint in intersection
+truckspot = new OrientedPoint in intersec     # not "intersection"
+
 
 ego = new Car at egospot,
         with behavior EgoBehavior(EGO_SPEED)
